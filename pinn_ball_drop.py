@@ -105,7 +105,7 @@ def true_solution(t):
 # "How many video snapshots do we show Nettie?"
 # We only give her 10 — just 10 paused frames from the whole flight!
 # If we gave ALL the data, she wouldn't need to learn Dad's rules.
-num_snapshots = 10
+num_snapshots = 50
 
 # torch.linspace(start, end, n) → makes n evenly-spaced numbers from start to end
 # Like putting n tick marks on a ruler between two values.
