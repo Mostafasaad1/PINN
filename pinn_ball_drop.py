@@ -135,7 +135,7 @@ print(f"    Last frame:   t = {t_data[-1].item():.3f} s  →  height ≈ {y_data
 # We'll create 50 evenly-spaced moments for Dad to inspect.
 # These are called "collocation points" in fancy math, but let's call them
 # "Dad's inspection spots."
-num_physics_pts = 50
+num_physics_pts = 100
 
 # requires_grad=True is MAGIC SAUCE.
 # It tells PyTorch: "Put a speedometer on every one of these time values
