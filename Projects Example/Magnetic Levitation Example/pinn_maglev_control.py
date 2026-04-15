@@ -27,6 +27,8 @@
 import torch
 import torch.nn as nn
 import numpy as np
+import matplotlib
+matplotlib.use('Agg')  # Use non-interactive backend to avoid Qt GUI issues
 import matplotlib.pyplot as plt
 
 device = torch.device('cpu')
@@ -89,8 +91,8 @@ loss_fn = nn.MSELoss()
 # ══════════════════════════════════════════════════════════════════════════════
 
 t_physics = torch.linspace(0, T_target, 400, requires_grad=True).view(-1, 1).to(device)
-t_start = torch.tensor([[0.0]]).to(device)
-t_end   = torch.tensor([[T_target]]).to(device)
+t_start = torch.tensor([[0.0]], requires_grad=True).to(device)
+t_end = torch.tensor([[T_target]], requires_grad=True).to(device)
 
 # ══════════════════════════════════════════════════════════════════════════════
 # 4. TRAINING LOOP
@@ -189,7 +191,7 @@ ax2.grid(True)
 
 plt.tight_layout()
 plt.savefig("maglev_results.png")
-plt.show()
+# plt.show()  # Disabled for non-interactive backend - image saved to maglev_results.png
 
 # Observe the current curve i(t). It does not just linearly increase. 
 # It spikes to pull the ball up, then sharply drops to prevent the ball from 

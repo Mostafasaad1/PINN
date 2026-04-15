@@ -64,34 +64,35 @@ N_ic = 2000       # Points at t=0
 
 # --- A. Physics Points (Randomly scattered in x, y, z, t, AND alpha) ---
 # We track gradients for x, y, z, and t to calculate the PDE.
-# We DO NOT need to track the gradient of alpha, because the derivative with 
+# We DO NOT need to track the gradient of alpha, because the derivative with
 # respect to material property isn't in the heat equation! It's just a coefficient.
-x_p = (torch.rand(N_physics, 1, requires_grad=True) * L).to(device)
-y_p = (torch.rand(N_physics, 1, requires_grad=True) * L).to(device)
-z_p = (torch.rand(N_physics, 1, requires_grad=True) * L).to(device)
-t_p = (torch.rand(N_physics, 1, requires_grad=True) * T_max).to(device)
+# Note: Using .detach().clone() to ensure clean tensors, then setting requires_grad
+x_p = (torch.rand(N_physics, 1) * L).detach().clone().to(device).requires_grad_(True)
+y_p = (torch.rand(N_physics, 1) * L).detach().clone().to(device).requires_grad_(True)
+z_p = (torch.rand(N_physics, 1) * L).detach().clone().to(device).requires_grad_(True)
+t_p = (torch.rand(N_physics, 1) * T_max).detach().clone().to(device).requires_grad_(True)
 
 # The 5th Dimension: Randomly sampling different materials!
-alpha_p = (torch.rand(N_physics, 1) * (alpha_max - alpha_min) + alpha_min).to(device)
+alpha_p = (torch.rand(N_physics, 1) * (alpha_max - alpha_min) + alpha_min).detach().clone().to(device)
 
 # --- B. Initial Condition Points (t = 0, for ALL materials) ---
-x_ic = (torch.rand(N_ic, 1) * L).to(device)
-y_ic = (torch.rand(N_ic, 1) * L).to(device)
-z_ic = (torch.rand(N_ic, 1) * L).to(device)
-t_ic = torch.zeros(N_ic, 1).to(device)
-alpha_ic = (torch.rand(N_ic, 1) * (alpha_max - alpha_min) + alpha_min).to(device)
-T_ic_target = torch.full((N_ic, 1), 20.0).to(device) # Ambient 20°C
+x_ic = (torch.rand(N_ic, 1) * L).detach().clone().to(device)
+y_ic = (torch.rand(N_ic, 1) * L).detach().clone().to(device)
+z_ic = (torch.rand(N_ic, 1) * L).detach().clone().to(device)
+t_ic = torch.zeros(N_ic, 1).detach().clone().to(device)
+alpha_ic = (torch.rand(N_ic, 1) * (alpha_max - alpha_min) + alpha_min).detach().clone().to(device)
+T_ic_target = torch.full((N_ic, 1), 20.0).detach().clone().to(device) # Ambient 20°C
 
 # --- C. Boundary Condition Points (Hot Battery in the center) ---
 # For simplicity, we just say the exact coordinate (0.5, 0.5, 0.5) is 80°C.
-# Note: Using .clone() to ensure each tensor has independent storage
-# (torch.full() can create tensors sharing the same underlying storage)
-x_bc = torch.full((N_bc, 1), L/2).clone().to(device)
-y_bc = torch.full((N_bc, 1), L/2).clone().to(device)
-z_bc = torch.full((N_bc, 1), L/2).clone().to(device)
-t_bc = (torch.rand(N_bc, 1) * T_max).to(device)
-alpha_bc = (torch.rand(N_bc, 1) * (alpha_max - alpha_min) + alpha_min).to(device)
-T_bc_target = torch.full((N_bc, 1), 80.0).to(device) # Hot battery core 80°C
+# Note: Using .detach().clone() to ensure tensors are completely independent
+# and won't cause graph recomputation issues during training
+x_bc = torch.full((N_bc, 1), L/2).detach().clone().to(device)
+y_bc = torch.full((N_bc, 1), L/2).detach().clone().to(device)
+z_bc = torch.full((N_bc, 1), L/2).detach().clone().to(device)
+t_bc = (torch.rand(N_bc, 1) * T_max).detach().clone().to(device)
+alpha_bc = (torch.rand(N_bc, 1) * (alpha_max - alpha_min) + alpha_min).detach().clone().to(device)
+T_bc_target = torch.full((N_bc, 1), 80.0).detach().clone().to(device) # Hot battery core 80°C
 
 # ══════════════════════════════════════════════════════════════════════════════
 # 3. THE NEURAL NETWORK (5 Inputs -> 1 Output)
