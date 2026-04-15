@@ -84,9 +84,11 @@ T_ic_target = torch.full((N_ic, 1), 20.0).to(device) # Ambient 20°C
 
 # --- C. Boundary Condition Points (Hot Battery in the center) ---
 # For simplicity, we just say the exact coordinate (0.5, 0.5, 0.5) is 80°C.
-x_bc = torch.full((N_bc, 1), L/2).to(device)
-y_bc = torch.full((N_bc, 1), L/2).to(device)
-z_bc = torch.full((N_bc, 1), L/2).to(device)
+# Note: Using .clone() to ensure each tensor has independent storage
+# (torch.full() can create tensors sharing the same underlying storage)
+x_bc = torch.full((N_bc, 1), L/2).clone().to(device)
+y_bc = torch.full((N_bc, 1), L/2).clone().to(device)
+z_bc = torch.full((N_bc, 1), L/2).clone().to(device)
 t_bc = (torch.rand(N_bc, 1) * T_max).to(device)
 alpha_bc = (torch.rand(N_bc, 1) * (alpha_max - alpha_min) + alpha_min).to(device)
 T_bc_target = torch.full((N_bc, 1), 80.0).to(device) # Hot battery core 80°C

@@ -63,11 +63,8 @@ N_bc = 1000       # Points on the boundaries (Data Loss)
 N_ic = 1000       # Points at time t=0 (Data Loss)
 
 # --- A. Physics Points (Randomly scattered in x, y, z, t) ---
-# We need to track gradients for these to calculate our PDE!
-x_phys = (torch.rand(N_physics, 1, requires_grad=True) * L).to(device)
-y_phys = (torch.rand(N_physics, 1, requires_grad=True) * L).to(device)
-z_phys = (torch.rand(N_physics, 1, requires_grad=True) * L).to(device)
-t_phys = (torch.rand(N_physics, 1, requires_grad=True) * T_max).to(device)
+# NOTE: Physics points are now created inside the training loop to ensure
+# a fresh computation graph is built each epoch (avoids graph reuse issues)
 
 # --- B. Initial Condition Points (t = 0) ---
 x_ic = (torch.rand(N_ic, 1) * L).to(device)
@@ -133,6 +130,12 @@ for epoch in range(1, epochs + 1):
     loss_bc = loss_fn(T_bc_pred, T_bc_target)
 
     # ─── PART 2: PHYSICS LOSS (The Heat Equation PDE) ─────────────────────
+    
+    # Create fresh physics points each epoch to avoid graph reuse issues
+    x_phys = (torch.rand(N_physics, 1, requires_grad=True) * L).to(device)
+    y_phys = (torch.rand(N_physics, 1, requires_grad=True) * L).to(device)
+    z_phys = (torch.rand(N_physics, 1, requires_grad=True) * L).to(device)
+    t_phys = (torch.rand(N_physics, 1, requires_grad=True) * T_max).to(device)
     
     # Predict temperature at our random 4D physics points
     T_phys = model(x_phys, y_phys, z_phys, t_phys)
