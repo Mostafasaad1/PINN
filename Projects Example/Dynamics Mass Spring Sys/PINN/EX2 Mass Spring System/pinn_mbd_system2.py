@@ -142,4 +142,5 @@ plt.legend()
 plt.grid(True, alpha=0.3)
 
 plt.tight_layout()
+plt.savefig("pinn_mbd_system2.png")
 plt.show()
