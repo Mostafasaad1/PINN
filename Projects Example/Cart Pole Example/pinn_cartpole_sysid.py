@@ -61,7 +61,7 @@ def simulate_cartpole(t_max, dt):
         sin_t, cos_t = np.sin(theta), np.cos(theta)
         
         # Angular acceleration of the pole
-        num_theta = g * sin_t + cos_t * (-m * L * theta_dot**2 * sin_t) / (TRUE_M + TRUE_m)
+        num_theta = g * sin_t + cos_t * (-TRUE_m * L * theta_dot**2 * sin_t) / (TRUE_M + TRUE_m)
         den_theta = L * (4.0/3.0 - (TRUE_m * cos_t**2) / (TRUE_M + TRUE_m))
         theta_ddot = num_theta / den_theta
         

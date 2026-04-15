@@ -94,9 +94,9 @@ loss_fn = nn.MSELoss()
 # Continuous time points to enforce the physics
 t_physics = torch.linspace(0, T_target, 500, requires_grad=True).view(-1, 1).to(device)
 
-# Boundary Time Points
-t_start = torch.tensor([[0.0]]).to(device)
-t_end   = torch.tensor([[T_target]]).to(device)
+# Boundary Time Points (must require grad for velocity computation)
+t_start = torch.tensor([[0.0]], requires_grad=True).to(device)
+t_end = torch.tensor([[T_target]], requires_grad=True).to(device)
 
 # ══════════════════════════════════════════════════════════════════════════════
 # 4. TRAJECTORY OPTIMIZATION TRAINING LOOP
