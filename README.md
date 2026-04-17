@@ -34,7 +34,7 @@ matplotlib>=3.3.0
 pip install torch numpy matplotlib
 ```
 
-## Examples Progression **REMOVED**
+## ~~Examples Progression~~ **REMOVED**
 
 | Dimension | Example | Physics | Application |
 |-----------|---------|---------|-------------|
