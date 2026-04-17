@@ -10,23 +10,6 @@ This repository demonstrates how PINNs combine neural networks with physical law
 
 ```
 PINN/
-├── 1D example/                 # Ball drop - Introduction to PINNs
-│   ├── pinn_ball_drop.py
-│   ├── pinn_ball_drop.ipynb
-│   └── pinn_results_*.png
-├── 2D example/                 # Projectile trajectory in 2D
-│   ├── pinn_2d_trajectory.py
-│   └── pinn_2d_results.png
-├── 3D example/                 # Paper airplane with wind
-│   ├── pinn_3d_airplane.py
-│   └── pinn_3d_results.png
-├── 4D example/                 # 3D Heat equation (spacetime)
-│   ├── pinn_4d_heat_equation.py
-│   └── pinn_4d_results.png
-├── 5D example/                 # Parametric surrogate model
-│   └── pinn_5d_parametric_surrogate.py
-├── 6D example/                 # 6-DOF inverse kinematics
-│   └── pinn_6dof_ik_solver.py
 └── Projects Example/           # Real-world applications
     ├── Beam-Ball Balancer/     # MIMO control planning
     ├── Cart Pole Example/      # System identification
@@ -51,7 +34,7 @@ matplotlib>=3.3.0
 pip install torch numpy matplotlib
 ```
 
-## Examples Progression
+## Examples Progression **REMOVED**
 
 | Dimension | Example | Physics | Application |
 |-----------|---------|---------|-------------|
@@ -74,18 +57,6 @@ A Physics-Informed Neural Network combines:
 - **Data-efficient**: Learn from sparse observations
 - **Continuous**: Query any point in the domain
 - **Physics-guaranteed**: Solutions respect physical laws
-
-## Quick Start
-
-```bash
-# Start with the simplest example
-cd "1D example"
-python pinn_ball_drop.py
-
-# Progress to higher dimensions
-cd "../2D example"
-python pinn_2d_trajectory.py
-```
 
 ## Project Examples
 
