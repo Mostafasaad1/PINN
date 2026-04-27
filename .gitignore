@@ -1,1 +1,62 @@
-*D example/
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+
+# Virtual Environment
+venv/
+env/
+ENV/
+.venv
+
+# Jupyter Notebook
+.ipynb_checkpoints/
+*.ipynb_checkpoints
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Generated images (optional - uncomment if you don't want to commit them)
+# *.png
+# *.jpg
+# *.jpeg
+
+# Data files
+*.csv
+*.xlsx
+*.json
+!kaggle.json
+
+# Model files
+*.pth
+*.pt
+*.pkl
+*.pickle
+
+# Logs
+*.log
